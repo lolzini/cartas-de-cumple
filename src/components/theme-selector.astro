@@ -1,0 +1,21 @@
+---
+import themes from "./themes"
+---
+
+<select id="theme-selector" class="select select-bordered select-xs capitalize" name="theme">
+    {
+      themes.map((value) => {
+        return <option class="capitalize" value={value}>{value}</option>;
+      })
+    }
+</select>
+
+<script>
+  const themeSelector = document.querySelector("#theme-selector") as HTMLElement;
+
+  themeSelector.addEventListener("change",(e) =>{
+    document.documentElement.dataset.theme = e.target.value
+  })
+
+  
+</script>

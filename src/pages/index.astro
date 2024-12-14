@@ -1,11 +1,39 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "@layouts/layout.astro";
+import Main from "@layouts/main.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <Main>
+    <form class="form-control max-w-fit gap-2">
+    <label class="flex items-center gap-2">
+      <span class="font-bold">De: </span>
+      <input class="input input-bordered input-md flex-1" type="text" name="from"/>
+    </label>
+    <label class="flex items-center gap-2">
+      <span class="font-bold">Para*: </span>
+      <input class="input input-bordered input-md flex-1" type="text" name="to" required/>
+    </label>
+    <button class="btn btn-sm" type="submit">Crear</button>
+  </form>
+</Main>
 </Layout>
+<script>
+  const form = document.querySelector("form") as HTMLFormElement;
+
+  form.addEventListener("submit",(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const from = formData.get("from")?.toString()
+    const to = formData.get("to")?.toString();
+
+    if(!to) return;
+
+    const url = new URL(window.location.href);
+    url.pathname = "/hbd"
+    url.searchParams.set("from",from!);
+    url.searchParams.set("to",to!);
+
+    window.location.replace(url.toString());
+  })
+</script>
