@@ -1,12 +1,13 @@
 ---
-export const prerender = false
+export const prerender = false;
 
-import Card from "@components/card.astro";
-import Layout from "@layouts/base.astro"
+import Card from "@components/hbd-card.astro";
+import Layout from "@layouts/base.astro";
+import Main from "@layouts/main.astro";
 ---
 
 <Layout>
-  <main class="m-4">
-    <Card/>
-  </main>
+  <Main class="m-4">
+    <Card />
+  </Main>
 </Layout>

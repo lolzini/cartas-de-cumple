@@ -1,4 +1,1 @@
-export default [
-   "cupcake",
-   "valentine",
-];
+export default ["cupcake", "valentine"];

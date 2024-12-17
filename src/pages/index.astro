@@ -6,34 +6,54 @@ import Main from "@layouts/main.astro";
 <Layout>
   <Main>
     <form class="form-control max-w-fit gap-2">
-    <label class="flex items-center gap-2">
-      <span class="font-bold">De: </span>
-      <input class="input input-bordered input-md flex-1" type="text" name="from"/>
-    </label>
-    <label class="flex items-center gap-2">
-      <span class="font-bold">Para*: </span>
-      <input class="input input-bordered input-md flex-1" type="text" name="to" required/>
-    </label>
-    <button class="btn btn-sm" type="submit">Crear</button>
-  </form>
-</Main>
+      <section class="flex justify-center items-center border-primary rounded">
+        <label class="label cursor-pointer gap-2">
+          <span class="label-text">Cumpleaños</span>
+          <input class="radio" type="radio" name="type" value="hbd" checked />
+        </label>
+        <label class="label cursor-pointer gap-2">
+          <span class="label-text">Navidad</span>
+          <input class="radio" type="radio" name="type" value="xmas" />
+        </label>
+      </section>
+      <label class="flex items-center gap-2">
+        <span class="font-bold">De: </span>
+        <input
+          class="input input-md input-bordered flex-1"
+          type="text"
+          name="from"
+        />
+      </label>
+      <label class="flex items-center gap-2">
+        <span class="font-bold">Para*: </span>
+        <input
+          class="input input-md input-bordered flex-1"
+          type="text"
+          name="to"
+          required
+        />
+      </label>
+      <button class="btn btn-sm" type="submit">Crear</button>
+    </form>
+  </Main>
 </Layout>
 <script>
   const form = document.querySelector("form") as HTMLFormElement;
 
-  form.addEventListener("submit",(e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const from = formData.get("from")?.toString()
+    const type = formData.get("type")?.toString();
+    const from = formData.get("from")?.toString();
     const to = formData.get("to")?.toString();
 
-    if(!to) return;
+    if (!to) return;
 
     const url = new URL(window.location.href);
-    url.pathname = "/hbd"
-    url.searchParams.set("from",from!);
-    url.searchParams.set("to",to!);
+    url.pathname = `/${type}` || "/hbd";
+    url.searchParams.set("from", from!);
+    url.searchParams.set("to", to!);
 
     window.location.replace(url.toString());
-  })
+  });
 </script>
