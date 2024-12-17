@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: ["prettier-plugin-tailwindcss", require("daisyui")],
   daisyui: {
-    themes: ["cupcake","valentine"],
+    themes: ["cupcake", "valentine"],
   },
 };
