@@ -44,7 +44,7 @@ const to = Astro.url.searchParams.get("para");
         ]}
       >
         <p class="text-left">
-          ¡<span class="text-amber-400">{to}</span> felices Fiestas! ✨
+          {to ? `¡${to} felices Fiestas! ✨` : "¡Felices Fiestas! ✨"}
         </p>
         <p>
           Que esta Navidad te llene de amor, alegría y momentos inolvidables
