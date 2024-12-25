@@ -4,8 +4,8 @@ interface Props {
   description?: string;
 }
 
-const from = Astro.url.searchParams.get("from")!;
-const to = Astro.url.searchParams.get("to")!;
+const from = Astro.url.searchParams.get("de")!;
+const to = Astro.url.searchParams.get("para")!;
 
 function getDescription(to?: string, from?: string) {
   if (!to && !from) return "Tienes un regalo";
@@ -17,10 +17,8 @@ function getDescription(to?: string, from?: string) {
   }
 }
 
-const {
-  title = "Nos llegó un mensaje para ti",
-  description = getDescription(to, from),
-} = Astro.props;
+const { title = "¡Felicidades!", description = getDescription(to, from) } =
+  Astro.props;
 ---
 
 <!doctype html>
@@ -31,6 +29,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <slot name="head" />
     <title>{title}</title>
   </head>
   <body>

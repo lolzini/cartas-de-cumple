@@ -11,6 +11,15 @@ const to = Astro.url.searchParams.get("para");
 ---
 
 <CardLayout>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
   <Main class="m-4 custom-background">
     <div class="fixed bottom-4 right-4">
       <Share />
@@ -59,7 +68,6 @@ const to = Astro.url.searchParams.get("para");
   </Main>
 </CardLayout>
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Clicker+Script&display=swap");
   #front {
     font-family: "Clicker Script", cursive;
   }
