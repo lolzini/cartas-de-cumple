@@ -44,7 +44,15 @@ const to = Astro.url.searchParams.get("para");
         ]}
       >
         <p class="text-left">
-          {to ? `¡${to} felices Fiestas! ✨` : "¡Felices Fiestas! ✨"}
+          {
+            to ? (
+              <>
+                ¡<span class="text-amber-400">{to}</span> felices Fiestas! ✨
+              </>
+            ) : (
+              "¡Felices Fiestas! ✨"
+            )
+          }
         </p>
         <p>
           Que esta Navidad te llene de amor, alegría y momentos inolvidables
@@ -59,7 +67,7 @@ const to = Astro.url.searchParams.get("para");
         {
           from ? (
             <p class="text-right">
-              Con todo mi cariño, <span class="text-rose-500">{from}</span>
+              Con todo mi cariño, <span class="text-rose-600">{from}</span>
             </p>
           ) : null
         }
