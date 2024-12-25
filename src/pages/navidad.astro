@@ -6,11 +6,11 @@ import Share from "@components/share.astro";
 import CardLayout from "@layouts/card-layout.astro";
 import Main from "@layouts/main.astro";
 
-const from = Astro.url.searchParams.get("from");
-const to = Astro.url.searchParams.get("to");
+const from = Astro.url.searchParams.get("de");
+const to = Astro.url.searchParams.get("para");
 ---
 
-<CardLayout title="">
+<CardLayout>
   <Main class="m-4 custom-background">
     <div class="fixed bottom-4 right-4">
       <Share />

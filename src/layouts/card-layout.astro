@@ -1,14 +1,25 @@
 ---
-import NavBar from "@components/navbar.astro";
-
 interface Props {
   title?: string;
   description?: string;
 }
 
+const from = Astro.url.searchParams.get("from")!;
+const to = Astro.url.searchParams.get("to")!;
+
+function getDescription(to?: string, from?: string) {
+  if (!to && !from) return "Tienes un regalo";
+  if (to && from) {
+    return `${to} tienes un regalo de ${from}`;
+  }
+  if (to) {
+    return `${to} tienes un regalo`;
+  }
+}
+
 const {
-  title = "Generador de Cartas de Felicitación",
-  description = "Crea tarjetas de cumpleaños personalizadas de forma fácil y rápida con nuestro generador. Perfecto para cualquier ocasión especial.",
+  title = "Nos llegó un mensaje para ti",
+  description = getDescription(to, from),
 } = Astro.props;
 ---
 
@@ -23,7 +34,6 @@ const {
     <title>{title}</title>
   </head>
   <body>
-    <NavBar />
     <slot />
   </body>
 </html>
