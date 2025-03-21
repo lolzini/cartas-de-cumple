@@ -1,0 +1,105 @@
+---
+export const prerender = false;
+
+import Card from "@components/card.astro";
+import Share from "@components/share.astro";
+import CardLayout from "@layouts/card-layout.astro";
+import Main from "@layouts/main.astro";
+import { useTranslations } from "@i18n/utils";
+import { getLanguageFromURL } from "@i18n/utils";
+
+const lang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(lang);
+
+const from = Astro.url.searchParams.get("de");
+const to = Astro.url.searchParams.get("para");
+---
+
+<CardLayout>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <Main class="m-4 custom-background">
+    <div class="fixed bottom-4 right-4">
+      <Share />
+    </div>
+    <Card title={t("christmas.title")}>
+      <div
+        id="front"
+        class:list={[
+          "absolute top-0 left-0 h-full w-full flex justify-center items-center font-bold text-slate-50",
+          "front-bg",
+        ]}
+        slot="front"
+      >
+        <h1 class:list={[" text-4xl", "custom-shadow"]}>
+          {t("christmas.title")}
+        </h1>
+      </div>
+      <div
+        id="inside"
+        class:list={[
+          "flex flex-col justify-center px-4 py-10 text-sm gap-4 h-full text-slate-50",
+          "custom-shadow-text",
+          "back-bg",
+        ]}
+      >
+        <p class="text-left">
+          {
+            to ? (
+              <>
+                ¡<span class="text-amber-400">{to}</span>! ✨
+              </>
+            ) : null
+          }
+        </p>
+        <p>{t("christmas.message")}</p>
+        <p>{t("christmas.wishes")}</p>
+        <p class="text-right">
+          {
+            from ? (
+              <>
+                {t("christmas.from")} <span class="text-amber-400">{from}</span>
+              </>
+            ) : null
+          }
+        </p>
+      </div>
+    </Card>
+  </Main>
+</CardLayout>
+
+<style>
+  .custom-background {
+    background-image: url("/images/xmas-wrapper.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+  }
+
+  .front-bg {
+    background-image: url("/images/xmas-trees.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .back-bg {
+    background-image: url("/images/xmas-light.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .custom-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .custom-shadow-text {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+</style>

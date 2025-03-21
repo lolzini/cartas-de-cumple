@@ -1,0 +1,76 @@
+---
+import { useTranslations } from "@i18n/utils";
+import { getLanguageFromURL } from "@i18n/utils";
+
+import Base from "@layouts/base.astro";
+import Main from "@layouts/main.astro";
+
+const lang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(lang);
+---
+
+<Base>
+  <Main>
+    <form class="form-control max-w-fit gap-2">
+      <section class="flex justify-center items-center border-primary rounded">
+        {
+          [
+            { label: t("nav.birthday"), value: "hbd" },
+            { label: t("nav.christmas"), value: "navidad" },
+          ].map(({ label, value }) => (
+            <label class="label cursor-pointer gap-2">
+              <span class="label-text">{label}</span>
+              <input
+                class="radio"
+                type="radio"
+                name="tipo"
+                value={value}
+                checked={value === "hbd"}
+              />
+            </label>
+          ))
+        }
+      </section>
+      <label class="flex items-center gap-2">
+        <span class="font-bold">{t("birthday.from")}: </span>
+        <input
+          class="input input-md input-bordered flex-1"
+          type="text"
+          name="de"
+        />
+      </label>
+      <label class="flex items-center gap-2">
+        <span class="font-bold">{t("birthday.to")}*: </span>
+        <input
+          class="input input-md input-bordered flex-1"
+          type="text"
+          name="para"
+          required
+        />
+      </label>
+      <button class="btn btn-sm" type="submit">Crear</button>
+    </form>
+  </Main>
+</Base>
+
+<script>
+  const form = document.querySelector("form") as HTMLFormElement;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const type = formData.get("tipo")?.toString();
+    const from = formData.get("de")?.toString();
+    const to = formData.get("para")?.toString();
+
+    if (!to) return;
+
+    const url = new URL(window.location.href);
+    const lang = url.pathname.split("/")[1];
+    url.pathname = `/${lang}/${type}` || `/${lang}/hbd`;
+    url.searchParams.set("de", from!);
+    url.searchParams.set("para", to!);
+
+    window.location.replace(url.toString());
+  });
+</script>

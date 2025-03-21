@@ -1,9 +1,14 @@
 ---
 import Main from "@layouts/main.astro";
 import Cake from "./cake.astro";
+import { useTranslations } from "@i18n/utils";
+import { getLanguageFromURL } from "@i18n/utils";
 
-const from = Astro.url.searchParams.get("from");
-const to = Astro.url.searchParams.get("to");
+const lang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(lang);
+
+const from = Astro.url.searchParams.get(lang === "es" ? "de" : "from");
+const to = Astro.url.searchParams.get(lang === "es" ? "para" : "to");
 ---
 
 <Main>
@@ -17,7 +22,7 @@ const to = Astro.url.searchParams.get("to");
   </div>
   <div class="birthdaycard">
     <div class="cardfront">
-      <h3 class="happy">¡Feliz cumpleaños!</h3>
+      <h3 class="happy">{t("birthday.title")}</h3>
 
       <div class="balloons">
         <div class="balloon1"></div>
@@ -32,17 +37,15 @@ const to = Astro.url.searchParams.get("to");
 
     <div class="cardinside">
       <h3 class="back">¡Feliz cumpleaños!</h3>
-      <p>Querid@ {to},</p>
       <p>
-        ¡Que este día esté lleno de alegría, amor y momentos inolvidables! 🎂🎉
+        {lang === "es" ? "¡" : ""}<span>{to}</span>{lang === "es" ? "!" : ""} ✨
       </p>
+      <p>{t("birthday.message")}</p>
       <p class="name">
-        xoxo
         {
           from ? (
             <>
-              <br />
-              {from}
+              {t("birthday.from")} <span>{from}</span>
             </>
           ) : null
         }

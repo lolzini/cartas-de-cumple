@@ -1,8 +1,12 @@
 ---
 import ThemeSelector from "@components/theme-selector.astro";
+import LanguageSelector from "@components/language-selector.astro";
 ---
 
 <nav class="flex h-14 items-center justify-between p-4">
   <a class="font-bold" href="/">Generador de cartas</a>
-  <div><ThemeSelector /></div>
+  <div class="flex items-center gap-4">
+    <LanguageSelector />
+    <ThemeSelector />
+  </div>
 </nav>

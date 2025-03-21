@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Home",
+    "birthday": "Birthday",
+    "christmas": "Christmas"
+  },
+  "birthday": {
+    "title": "Happy Birthday!",
+    "message": "May this day be filled with joy and unforgettable moments",
+    "from": "From",
+    "to": "To"
+  },
+  "christmas": {
+    "title": "Merry Christmas",
+    "message": "May this Christmas fill you with love, joy and unforgettable moments with your loved ones",
+    "wishes": "May the new year bring health, success and many reasons to smile",
+    "from": "From",
+    "to": "To"
+  }
+}

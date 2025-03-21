@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "birthday": "Cumpleaños",
+    "christmas": "Navidad"
+  },
+  "birthday": {
+    "title": "¡Feliz Cumpleaños!",
+    "message": "Que este día esté lleno de alegría y momentos inolvidables",
+    "from": "De",
+    "to": "Para"
+  },
+  "christmas": {
+    "title": "Feliz Navidad",
+    "message": "Que esta Navidad te llene de amor, alegría y momentos inolvidables junto a tus seres queridos",
+    "wishes": "Que el nuevo año traiga salud, éxitos y muchas razones para sonreír",
+    "from": "De",
+    "to": "Para"
+  }
+}

@@ -1,0 +1,20 @@
+---
+import { languages, type Language } from "@i18n/config";
+import { getLanguageFromURL, getLocalizedPathname } from "@i18n/utils";
+
+const pathname = Astro.url.pathname;
+const currentLang = getLanguageFromURL(pathname);
+---
+
+<div class="flex gap-2">
+  {
+    Object.entries(languages).map(([lang, label]) => (
+      <a
+        href={getLocalizedPathname(pathname, lang as Language)}
+        class={`hover:text-primary-600 ${currentLang === lang ? "font-bold" : ""}`}
+      >
+        {label}
+      </a>
+    ))
+  }
+</div>

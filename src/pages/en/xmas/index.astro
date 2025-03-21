@@ -5,9 +5,14 @@ import Card from "@components/card.astro";
 import Share from "@components/share.astro";
 import CardLayout from "@layouts/card-layout.astro";
 import Main from "@layouts/main.astro";
+import { useTranslations } from "@i18n/utils";
+import { getLanguageFromURL } from "@i18n/utils";
 
-const from = Astro.url.searchParams.get("de");
-const to = Astro.url.searchParams.get("para");
+const lang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(lang);
+
+const from = Astro.url.searchParams.get("from");
+const to = Astro.url.searchParams.get("to");
 ---
 
 <CardLayout>
@@ -24,7 +29,7 @@ const to = Astro.url.searchParams.get("para");
     <div class="fixed bottom-4 right-4">
       <Share />
     </div>
-    <Card title={"Feliz Navidad"}>
+    <Card title={t("christmas.title")}>
       <div
         id="front"
         class:list={[
@@ -33,7 +38,9 @@ const to = Astro.url.searchParams.get("para");
         ]}
         slot="front"
       >
-        <h1 class:list={[" text-4xl", "custom-shadow"]}>Feliz navidad</h1>
+        <h1 class:list={[" text-4xl", "custom-shadow"]}>
+          {t("christmas.title")}
+        </h1>
       </div>
       <div
         id="inside"
@@ -47,53 +54,52 @@ const to = Astro.url.searchParams.get("para");
           {
             to ? (
               <>
-                ¡<span class="text-amber-400">{to}</span> felices Fiestas! ✨
+                <span class="text-amber-400">{to}</span>! ✨
               </>
-            ) : (
-              "¡Felices Fiestas! ✨"
-            )
+            ) : null
           }
         </p>
-        <p>
-          Que esta Navidad te llene de amor, alegría y momentos inolvidables
-          junto a tus seres queridos.
+        <p>{t("christmas.message")}</p>
+        <p>{t("christmas.wishes")}</p>
+        <p class="text-right">
+          {
+            from ? (
+              <>
+                {t("christmas.from")} <span class="text-amber-400">{from}</span>
+              </>
+            ) : null
+          }
         </p>
-        <p>
-          Que el nuevo año traiga salud, éxitos y muchas razones para sonreír.
-        </p>
-        <p>
-          ¡Brilla con fuerza y que tus sueños se hagan realidad en este 2025!
-        </p>
-        {
-          from ? (
-            <p class="text-right">
-              Con todo mi cariño, <span class="text-rose-600">{from}</span>
-            </p>
-          ) : null
-        }
       </div>
     </Card>
   </Main>
 </CardLayout>
+
 <style>
-  #front {
-    font-family: "Clicker Script", cursive;
+  .custom-background {
+    background-image: url("/images/xmas-wrapper.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
   }
-  .custom-shadow {
-    text-shadow: 0.1rem 0.1rem 0.25rem black;
-  }
-  .custom-shadow-text {
-    text-shadow: 0.05rem 0.05rem black;
-    font-family: "Pacifico", sans-serif;
-  }
+
   .front-bg {
-    background-image: url("images/xmas-wrapper.png");
+    background-image: url("/images/xmas-trees.jpg");
     background-size: cover;
-    background-position: -26px -20px;
+    background-position: center;
   }
+
   .back-bg {
-    background-image: url("images/xmas-trees.jpg");
+    background-image: url("/images/xmas-light.jpg");
     background-size: cover;
-    background-position: right;
+    background-position: center;
+  }
+
+  .custom-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .custom-shadow-text {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   }
 </style>

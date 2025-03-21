@@ -1,27 +1,38 @@
 ---
-import Layout from "@layouts/base.astro";
+import { languages, defaultLanguage, type Language } from "@i18n/config";
+
+import Base from "@layouts/base.astro";
 import Main from "@layouts/main.astro";
 
-const types = [{ label: "Navidad", value: "navidad" }];
+const acceptLanguage = Astro.request.headers.get("accept-language") || "";
+const preferredLanguage = acceptLanguage
+  .split(",")
+  .map((lang) => lang.split(";")[0].trim().substring(0, 2))
+  .find((lang) => lang in languages) as Language | undefined;
+
+const targetLang = preferredLanguage || defaultLanguage;
+return Astro.redirect(`/${targetLang}/`);
 ---
 
-<Layout>
+<Base>
   <Main>
     <form class="form-control max-w-fit gap-2">
       <section class="flex justify-center items-center border-primary rounded">
         {
-          types.map(({ label, value }) => (
-            <label class="label cursor-pointer gap-2">
-              <span class="label-text">{label}</span>
-              <input
-                class="radio"
-                type="radio"
-                name="tipo"
-                value={value}
-                checked
-              />
-            </label>
-          ))
+          [{ label: "Happy Birthday", value: "hbd" }].map(
+            ({ label, value }) => (
+              <label class="label cursor-pointer gap-2">
+                <span class="label-text">{label}</span>
+                <input
+                  class="radio"
+                  type="radio"
+                  name="tipo"
+                  value={value}
+                  checked
+                />
+              </label>
+            ),
+          )
         }
       </section>
       <label class="flex items-center gap-2">
@@ -44,13 +55,13 @@ const types = [{ label: "Navidad", value: "navidad" }];
       <button class="btn btn-sm" type="submit">Crear</button>
     </form>
   </Main>
-</Layout>
+</Base>
 <script>
   const form = document.querySelector("form") as HTMLFormElement;
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const type = formData.get("tipo")?.toString();
     const from = formData.get("de")?.toString();
     const to = formData.get("para")?.toString();
